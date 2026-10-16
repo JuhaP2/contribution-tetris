@@ -1,5 +1,5 @@
 name: Contribution Tetris
-description: Turn your GitHub contributions into an animated game of Tetris for your profile README.
+description: Turn your GitHub contributions into animated retro games (Tetris and a space shooter with a boss) for your profile README.
 author: JuhaP2
 
 branding:
@@ -14,14 +14,21 @@ inputs:
     description: Token used to read the contribution count.
     default: ${{ github.token }}
   output_dir:
-    description: Folder the SVGs are written to (tetris-dark.svg and tetris-light.svg).
+    description: Folder the SVGs are written to.
     default: dist
+  games:
+    description: Comma-separated games to render. "tetris" writes tetris-dark.svg and tetris-light.svg, "invaders" writes invaders.svg.
+    default: tetris,invaders
 
 runs:
   using: composite
   steps:
-    - name: Render Tetris SVGs
+    - name: Render game SVGs
       shell: bash
-      run: python3 "${{ github.action_path }}/tetris.py" "${{ inputs.github_user_name }}" "${{ inputs.output_dir }}"
+      run: |
+        for game in ${GAMES//,/ }; do
+          python3 "${{ github.action_path }}/$game.py" "${{ inputs.github_user_name }}" "${{ inputs.output_dir }}"
+        done
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
+        GAMES: ${{ inputs.games }}
