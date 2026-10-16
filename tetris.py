@@ -294,7 +294,6 @@ def render(pieces, cells, clears, cycle, total_lines, total, theme):
     out.append(f'<rect x="{px}" y="{BY + 52}" width="80" height="56" rx="6" fill="{th["board"]}" stroke="{th["grid"]}" stroke-width="2"/>')
     out.append(f'<text x="{px}" y="{BY + 140}" font-size="10" fill="{th["text"]}">SCORE</text>')
     out.append(f'<text x="{px}" y="{BY + 196}" font-size="10" fill="{th["text"]}">LINES</text>')
-    out.append(f'<text x="{px}" y="{HEIGHT - 38}" font-size="8" fill="{th["text"]}" opacity=".7">score = contributions</text>')
     out.append(f'<text x="{px}" y="{HEIGHT - 22}" font-size="11" fill="{th["accent"]}">by {AUTHOR}</text>')
 
     # Next-piece preview, one group per piece lifetime.

@@ -399,7 +399,6 @@ def render(ev):
         out.append(f'<text class="sc{k} st" style="opacity:{1 if k == 0 else 0}" x="62" y="20" font-size="13" fill="{COLORS["value"]}">{score:,}</text>')
     out.append(f'<text x="{W / 2}" y="20" font-size="11" fill="{COLORS["accent"]}" text-anchor="middle">CONTRIBUTION INVADERS</text>')
     out.append(f'<text x="{W - 18}" y="20" font-size="11" fill="{COLORS["accent"]}" text-anchor="end">by {AUTHOR}</text>')
-    out.append(f'<text x="18" y="{H - 4}" font-size="8" fill="{COLORS["hud"]}" opacity=".7">score = contributions</text>')
 
     w0, w1 = ev["warn"]
     blink = "0%{opacity:0}" + "".join(
