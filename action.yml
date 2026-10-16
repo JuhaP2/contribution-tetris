@@ -1,0 +1,27 @@
+name: Contribution Tetris
+description: Turn your GitHub contributions into an animated game of Tetris for your profile README.
+author: JuhaP2
+
+branding:
+  icon: grid
+  color: purple
+
+inputs:
+  github_user_name:
+    description: GitHub user whose contributions set the score.
+    default: ${{ github.repository_owner }}
+  github_token:
+    description: Token used to read the contribution count.
+    default: ${{ github.token }}
+  output_dir:
+    description: Folder the SVGs are written to (tetris-dark.svg and tetris-light.svg).
+    default: dist
+
+runs:
+  using: composite
+  steps:
+    - name: Render Tetris SVGs
+      shell: bash
+      run: python3 "${{ github.action_path }}/tetris.py" "${{ inputs.github_user_name }}" "${{ inputs.output_dir }}"
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}

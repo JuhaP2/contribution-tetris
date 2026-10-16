@@ -1,0 +1,30 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run the action
+        uses: ./
+        with:
+          output_dir: dist
+
+      - name: Check the output
+        run: |
+          test -s dist/tetris-dark.svg
+          test -s dist/tetris-light.svg
+          python3 -c "import xml.dom.minidom as m; [m.parse(f) for f in ('dist/tetris-dark.svg', 'dist/tetris-light.svg')]"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tetris
+          path: dist
